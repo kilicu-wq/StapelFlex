@@ -180,3 +180,15 @@ details.group[open] summary::after{transform:rotate(180deg);}
 .offline-banner{position:fixed;left:0;right:0;top:0;z-index:45;text-align:center;padding:calc(4px + env(safe-area-inset-top)) 12px 4px;background:var(--accent-m);color:var(--bg);font-family:var(--mono);font-size:10.5px;font-weight:700;}
 .offline-banner.hidden{display:none;}
 .more-btn{display:block;width:100%;background:none;border:1px dashed var(--border);color:var(--text-faint);font-family:var(--mono);font-size:11px;padding:9px;border-radius:10px;cursor:pointer;margin-top:4px;}
+
+/* ---- Passwortsperre ---- */
+.lock-overlay{position:fixed;inset:0;z-index:100;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;}
+.lock-overlay.hidden{display:none;}
+.lock-card{width:100%;max-width:320px;display:flex;flex-direction:column;align-items:stretch;gap:10px;text-align:center;}
+.lock-title{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:1px;text-transform:uppercase;color:var(--text);}
+.lock-title span{color:var(--accent-m);}
+.lock-subtitle{font-size:12px;color:var(--text-faint);font-family:var(--mono);margin-bottom:8px;}
+.lock-input{width:100%;background:var(--bg-elev);border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-family:var(--mono);font-size:16px;text-align:center;outline:none;}
+.lock-input:focus{border-color:var(--accent);}
+.lock-btn{background:var(--accent);border:none;color:var(--bg);font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase;padding:12px;border-radius:10px;cursor:pointer;}
+.lock-error{min-height:14px;font-size:11px;color:var(--danger);font-family:var(--mono);}

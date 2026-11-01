@@ -20,6 +20,15 @@
 <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
+<div id="lock-overlay" class="lock-overlay">
+  <form id="lock-form" class="lock-card">
+    <div class="lock-title">Stapel <span>Flex</span></div>
+    <div class="lock-subtitle">Passwort eingeben</div>
+    <input id="lock-input" class="lock-input" type="password" inputmode="numeric" autocomplete="off" autofocus />
+    <button type="submit" class="lock-btn">Entsperren</button>
+    <div id="lock-error" class="lock-error"></div>
+  </form>
+</div>
 <div id="offline-banner" class="offline-banner hidden">Offline — alles wird lokal gespeichert</div>
 <div id="app"></div>
 <nav class="tabbar"><div class="tabbar-inner" id="tabbar"></div></nav>
@@ -27,6 +36,7 @@
 <div id="toast" class="toast"></div>
 <input type="file" id="restore-input" accept="application/json,.json" style="display:none" />
 
+<script src="./js/auth.js"></script>
 <script src="./js/db.js"></script>
 <script src="./js/app.js"></script>
 <script>

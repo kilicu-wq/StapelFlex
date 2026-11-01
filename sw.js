@@ -1,10 +1,11 @@
-const CACHE_VERSION = 'stapelflex-v2';
+const CACHE_VERSION = 'stapelflex-v3';
 const PRECACHE = [
   './',
   './index.html',
   './manifest.json',
   './css/style.css',
   './css/fonts.css',
+  './js/auth.js',
   './js/app.js',
   './js/db.js',
   './fonts/inter-400.woff2',
