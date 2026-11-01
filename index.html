@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Stapel Flex</title>
+<meta name="description" content="Stapel Flex — flexibler Trainingstracker, offline-fähig." />
+
+<meta name="theme-color" content="#17181A" />
+<meta name="color-scheme" content="dark" />
+
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" href="./icons/favicon.png" />
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Stapel Flex" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+<link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+<div id="offline-banner" class="offline-banner hidden">Offline — alles wird lokal gespeichert</div>
+<div id="app"></div>
+<nav class="tabbar"><div class="tabbar-inner" id="tabbar"></div></nav>
+<div id="overlay" class="overlay hidden"><div class="sheet" id="sheet"></div></div>
+<div id="toast" class="toast"></div>
+<input type="file" id="restore-input" accept="application/json,.json" style="display:none" />
+
+<script src="./js/db.js"></script>
+<script src="./js/app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.error('Service worker registration failed:', err));
+  });
+}
+function updateOnlineStatus(){
+  document.getElementById('offline-banner').classList.toggle('hidden', navigator.onLine);
+}
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+updateOnlineStatus();
+</script>
+</body>
+</html>
