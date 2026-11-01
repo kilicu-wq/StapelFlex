@@ -355,8 +355,8 @@ function drawChart() {
   const labelIdx = pts.length <= 5 ? pts.map((_, i) => i) : [0, Math.floor(pts.length / 2), pts.length - 1];
   labelIdx.forEach(i => { svg += `<text x="${x(pts[i].s.date)}" y="${H - 6}" fill="#5C5F66" font-size="9" font-family="JetBrains Mono,monospace" text-anchor="middle">KW${kwNum(pts[i].s.week)}</text>`; });
   svg += `<line id="xh" y1="${pt}" y2="${H - pb}" stroke="#5C5F66" stroke-width="1" stroke-dasharray="2 3" style="display:none"/>`;
-  svg += `<polyline fill="none" stroke="#C77DA0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="${pts.map(p => x(p.s.date) + ',' + y(p.v)).join(' ')}"/>`;
-  pts.forEach(p => { svg += `<circle cx="${x(p.s.date)}" cy="${y(p.v)}" r="4" fill="#C77DA0" stroke="#1F2124" stroke-width="2"/>`; });
+  svg += `<polyline fill="none" stroke="#C9A050" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="${pts.map(p => x(p.s.date) + ',' + y(p.v)).join(' ')}"/>`;
+  pts.forEach(p => { svg += `<circle cx="${x(p.s.date)}" cy="${y(p.v)}" r="4" fill="#C9A050" stroke="#1F2124" stroke-width="2"/>`; });
   const hitW = Math.max(16, Math.min(40, (W - pl - pr) / pts.length));
   pts.forEach((p, i) => { svg += `<rect class="hit" data-i="${i}" x="${x(p.s.date) - hitW / 2}" y="${pt}" width="${hitW}" height="${H - pt - pb}" fill="transparent"/>`; });
   const el = document.getElementById('chart'); el.innerHTML = svg;

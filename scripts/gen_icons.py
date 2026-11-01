@@ -2,7 +2,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 BG = (23, 24, 26, 255)       # --bg
-ACCENT = (199, 125, 160, 255)  # --accent (Flex)
+ACCENT = (201, 160, 80, 255)   # --accent (Flex, Gold)
 TEXT = (240, 236, 228, 255)  # --text
 
 FONT_PATH = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
