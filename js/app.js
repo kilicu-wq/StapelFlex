@@ -32,17 +32,74 @@ function uid() { return Date.now().toString(36).slice(-4) + Math.random().toStri
 /* ================= Standard-Übungskatalog =================
    Nur Startwert beim allerersten Öffnen. Danach gehört der Katalog der
    Nutzerin (Tab „Übungen“) und wird mit den Daten gesichert. IDs nie
-   ändern – die Historie hängt daran. */
+   ändern – die Historie hängt daran.
+   Quelle: data/standard-uebungen.xlsx. */
 const DEFAULT_CATALOG = [
-  ['brust', 'Brust', ['Bankdrücken (KH)', 'Schrägbankdrücken (KH)', 'Butterfly Maschine', 'Kabel-Flys', 'Brustpresse Maschine', 'Liegestütze']],
-  ['ruecken', 'Rücken', ['Latzug', 'Rudern Kabel sitzend', 'KH Rudern einarmig', 'Klimmzug assistiert', 'Face Pulls', 'Rückenstrecker']],
-  ['schultern', 'Schultern', ['Schulterdrücken (KH)', 'Seitheben (KH)', 'Frontheben (KH)', 'Reverse Flys', 'Arnold Press', 'Aufrechtes Rudern']],
-  ['bizeps', 'Bizeps', ['Bizeps Curl (KH)', 'Hammer Curl', 'Kabel Curl', 'SZ Curl', 'Konzentrationscurl', 'Preacher Curl']],
-  ['trizeps', 'Trizeps', ['Trizeps Pushdown', 'Overhead Extension (KH)', 'Kickbacks (KH)', 'Bank-Dips', 'French Press (SZ)', 'Enges Bankdrücken']],
-  ['beine', 'Beine', ['Kniebeugen', 'Beinpresse', 'Ausfallschritte', 'Beinstrecker', 'Beinbeuger', 'Wadenheben']],
-  ['po', 'Po', ['Hip Thrust', 'Glute Bridge', 'Kabel-Kickback', 'Abduktoren Maschine', 'Rum. Kreuzheben', 'Step-ups']],
-  ['bauch', 'Bauch', ['Crunches', 'Plank (Sek.)', 'Beinheben', 'Russian Twist', 'Bauchmaschine', 'Dead Bug']]
-].map(([id, name, list]) => ({ id, name, ex: list.map((n, i) => ({ id: id + '-' + (i + 1), name: n })) }));
+  ["brust", "Brust", [
+    ["brust-1", "Bankdrücken (KH)"],
+    ["brust-2", "Schrägbankdrücken (KH)"],
+    ["brust-7", "Bankdrücken (LH)"],
+    ["brust-3", "Butterfly Maschine"],
+    ["brust-4", "Kabel-Flys"],
+    ["brust-5", "Brustpresse Maschine"]
+  ]],
+  ["ruecken", "Rücken", [
+    ["ruecken-1", "Latzug"],
+    ["ruecken-2", "Rudern Kabel sitzend (weiter Griff)"],
+    ["ruecken-3", "Rudern einarmig (KH)"],
+    ["ruecken-4", "T-Bar Rudern (KH)"],
+    ["ruecken-5", "Face Pulls (Kabel)"],
+    ["ruecken-6", "Deadlift (LH)"],
+    ["ruecken-7", "Klimmzug assistiert (Maschine)"]
+  ]],
+  ["schultern", "Schultern", [
+    ["schultern-1", "Schulterdrücken (KH)"],
+    ["schultern-2", "Seitheben (KH)"],
+    ["schultern-7", "Seitheben (Kabel)"],
+    ["schultern-3", "Frontheben (KH)"],
+    ["schultern-4", "Reverse Flys"]
+  ]],
+  ["bizeps", "Bizeps", [
+    ["bizeps-1", "Bizeps Curl (KH)"],
+    ["bizeps-2", "Hammer Curl (KH)"],
+    ["bizeps-3", "Kabel Curl"],
+    ["bizeps-5", "Konzentrationscurl"],
+    ["bizeps-6", "Preacher Curl"]
+  ]],
+  ["trizeps", "Trizeps", [
+    ["trizeps-1", "Trizeps Pushdown (Rope)"],
+    ["trizeps-2", "Overhead Extension (Rope)"],
+    ["trizeps-3", "Kickbacks (KH)"],
+    ["trizeps-4", "Skull Crushers"]
+  ]],
+  ["beine", "Beine", [
+    ["beine-1", "Kniebeugen (LH)"],
+    ["beine-2", "Beinpresse"],
+    ["beine-3", "Ausfallschritte"],
+    ["beine-4", "Beinstrecker"],
+    ["beine-5", "Beinbeuger"],
+    ["beine-6", "Wadenheben"]
+  ]],
+  ["po", "Po", [
+    ["po-1", "Hip Thrust"],
+    ["po-2", "Sumo Squat"],
+    ["po-7", "Bulgarian Split Squats (KH)"],
+    ["po-8", "Step-Ups"],
+    ["po-9", "Step-Downs (Kabel)"],
+    ["po-5", "Rückenstrecker"],
+    ["po-6", "Romanian Deadlift (KH)"],
+    ["po-3", "Kabel-Kickback"],
+    ["po-4", "Abduktoren Maschine"]
+  ]],
+  ["bauch", "Bauch", [
+    ["bauch-1", "Crunches (Kabel)"],
+    ["bauch-2", "Dead Bug"],
+    ["bauch-3", "Plank (Sek.)"],
+    ["bauch-4", "Beinheben"],
+    ["bauch-5", "Russian Twist"],
+    ["bauch-6", "Bauchmaschine"]
+  ]]
+].map(([id, name, list]) => ({ id, name, ex: list.map(([eid, n]) => ({ id: eid, name: n })) }));
 
 /* ================= State =================
    S = {
@@ -688,8 +745,9 @@ async function init() {
   try { hasUndo = !!(await window.stapelFlexDB.get('state-before-restore')); } catch (e) { /* ignore */ }
   render();
   if (curDay()) setTimeout(() => toast('Weiter bei Tag ' + (S.view.day + 1) + ' · KW ' + kwNum(S.view.week)), 300);
+  await writeNow();
   await requestPersist();
-  writeNow();
+  if (S.view.tab === 'data') render();
 }
 init();
 
