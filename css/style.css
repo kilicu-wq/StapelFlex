@@ -16,7 +16,7 @@ input,textarea,select{font:inherit;}
 /* header */
 .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
 .title{font-family:var(--head);font-weight:700;font-size:26px;letter-spacing:1px;text-transform:uppercase;line-height:1;}
-.title span{color:var(--accent);}
+.title span{color:var(--accent-m);}
 .subtitle{font-size:11px;color:var(--text-faint);font-family:var(--mono);margin-top:4px;}
 .mock-badge{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--accent-m);border:1px dashed var(--accent-m);border-radius:6px;padding:3px 6px;}
 
