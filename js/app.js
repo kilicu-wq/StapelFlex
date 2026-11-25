@@ -305,7 +305,13 @@ function renderTrain() {
     } else lastHtml = `<div class="last-time" style="border-left-color:var(--text-faint);color:var(--text-faint)">Zum ersten Mal – viel Erfolg!</div>`;
     h += `<div class="card ${en.done ? 'done' : ''}">
       <div class="card-top"><div><div class="ex-name">${esc(name)}</div><div class="ex-group">${esc(gname)}</div></div>
-      <button class="check-btn ${en.done ? 'checked' : ''}" data-act="toggle" data-e="${ei}" aria-label="Erledigt">✓</button></div>
+      <div class="card-controls">
+        <div class="reorder-btns">
+          <button class="reorder-btn" data-act="move" data-e="${ei}" data-d="-1" ${ei === 0 ? 'disabled' : ''} aria-label="Nach oben">▲</button>
+          <button class="reorder-btn" data-act="move" data-e="${ei}" data-d="1" ${ei === d.entries.length - 1 ? 'disabled' : ''} aria-label="Nach unten">▼</button>
+        </div>
+        <button class="check-btn ${en.done ? 'checked' : ''}" data-act="toggle" data-e="${ei}" aria-label="Erledigt">✓</button>
+      </div></div>
       ${lastHtml}
       <div class="sets">${en.sets.map((s, si) => `
         <div class="set-row">
@@ -622,6 +628,12 @@ document.addEventListener('click', ev => {
     case 'toggle': d.entries[ei].done = !d.entries[ei].done; save(); render(); break;
     case 'add-set': { const s = d.entries[ei].sets; const l = s[s.length - 1] || { kg: '', reps: '' }; s.push({ kg: l.kg, reps: '' }); save(); render(); break; }
     case 'del-set': d.entries[ei].sets.splice(si, 1); if (!d.entries[ei].sets.length) d.entries[ei].sets.push({ kg: '', reps: '' }); save(); render(); break;
+    case 'move': {
+      const ni = ei + (+t.dataset.d);
+      if (ni < 0 || ni >= d.entries.length) break;
+      [d.entries[ei], d.entries[ni]] = [d.entries[ni], d.entries[ei]];
+      save(); render(); break;
+    }
     case 'del-ex': {
       const en = d.entries[ei]; const filled = en.sets.some(s => s.reps);
       const doIt = () => { d.entries.splice(ei, 1); save(); render(); };

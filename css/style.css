@@ -193,3 +193,9 @@ details.group[open] summary::after{transform:rotate(180deg);}
 .lock-input:focus{border-color:var(--accent);}
 .lock-btn{background:var(--accent);border:none;color:var(--bg);font-family:var(--head);font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase;padding:12px;border-radius:10px;cursor:pointer;}
 .lock-error{min-height:14px;font-size:11px;color:var(--danger);font-family:var(--mono);}
+
+/* ---- Reihenfolge ändern (wie Stapel) ---- */
+.card-controls{flex:0 0 auto;display:flex;align-items:center;gap:8px;}
+.reorder-btns{display:flex;flex-direction:column;gap:3px;}
+.reorder-btn{width:26px;height:24px;padding:0;border-radius:6px;border:1px solid var(--border);background:var(--bg-elev-2);color:var(--text-dim);font-size:9px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.reorder-btn:disabled{opacity:.3;cursor:default;}
